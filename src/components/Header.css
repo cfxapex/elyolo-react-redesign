@@ -1,0 +1,41 @@
+.header {
+  text-align: center;
+  padding: 4rem 0 2rem;
+  background: #fff;
+  border-bottom: 4px solid #000;
+  position: relative;
+  z-index: 100;
+}
+
+.logo {
+  font-family: 'Impact', 'Arial Black', sans-serif;
+  font-size: 6rem;
+  font-weight: 900;
+  letter-spacing: -2px;
+  color: #000;
+  text-decoration: none;
+  display: inline-block;
+  text-transform: uppercase;
+  position: relative;
+  transform: scale(1, 1.2);
+  /* Stretch vertically */
+  text-shadow: 5px 5px 0px rgba(0, 0, 0, 0.2);
+}
+
+.logo:hover {
+  text-shadow: 8px 8px 0px rgba(0, 0, 0, 0.3);
+  transform: scale(1, 1.2) rotate(-1deg);
+}
+
+.logo-reg {
+  font-size: 2rem;
+  vertical-align: top;
+  color: #000;
+  font-family: 'Courier New', monospace;
+}
+
+@media (max-width: 768px) {
+  .logo {
+    font-size: 3rem;
+  }
+}

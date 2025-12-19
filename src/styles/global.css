@@ -1,0 +1,181 @@
+/* Global Styles - Edgy Redesign */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  /* Strict Black & White Palette */
+  --primary-color: #000000;
+  --primary-hover: #333333;
+  --accent-color: #ff0000; /* Occasional blood red accent if needed */
+  --background: #f4f4f4; /* Off-white paper color */
+  --surface: #ffffff;
+  --surface-light: #f0f0f0;
+  --border: #000000;
+  --text-primary: #000000;
+  --text-secondary: #333333;
+  --text-muted: #666666;
+  
+  /* Textures */
+  --torn-edge-height: 20px;
+}
+
+body {
+  font-family: 'Courier New', Courier, monospace; /* Typewriter look */
+  background-color: var(--background);
+  color: var(--text-primary);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  letter-spacing: -0.5px;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* Global Noise Overlay */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 9999;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
+  opacity: 0.5;
+}
+
+a {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  filter: grayscale(100%) contrast(1.2); /* Global grungy image filter */
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Impact', 'Arial Black', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--primary-color);
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: #fff;
+  border-left: 2px solid #000;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #000;
+  border: 2px solid #fff;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #333;
+}
+
+/* Utility Classes */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.section {
+  padding: 6rem 0;
+  position: relative;
+}
+
+.section-title {
+  font-size: 5rem;
+  text-align: center;
+  margin-bottom: 4rem;
+  color: #000;
+  text-transform: uppercase;
+  line-height: 0.8;
+  transform: skew(-2deg); /* Edgy slant */
+  text-shadow: 4px 4px 0px rgba(0,0,0,0.1);
+}
+
+.btn {
+  display: inline-block;
+  padding: 1rem 2.5rem;
+  background: #000;
+  color: #fff;
+  text-decoration: none;
+  border: 2px solid #000;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-family: 'Courier New', Courier, monospace;
+  transition: all 0.2s;
+  box-shadow: 5px 5px 0px rgba(0,0,0,0.3);
+  transform: rotate(-1deg);
+}
+
+.btn:hover {
+  background: #fff;
+  color: #000;
+  transform: translate(-2px, -2px) rotate(0deg);
+  box-shadow: 7px 7px 0px rgba(0,0,0,0.5);
+}
+
+.btn-outline {
+  background: transparent;
+  color: #000;
+  border: 2px solid #000;
+}
+
+.btn-outline:hover {
+  background: #000;
+  color: #fff;
+}
+
+/* Torn Paper Effects */
+.torn-top {
+  clip-path: polygon(
+    0% 10px, 5% 0px, 10% 12px, 15% 2px, 20% 10px, 25% 0px, 30% 12px, 
+    35% 2px, 40% 14px, 45% 2px, 50% 12px, 55% 2px, 60% 14px, 65% 0px, 
+    70% 12px, 75% 2px, 80% 14px, 85% 2px, 90% 12px, 95% 2px, 100% 14px, 
+    100% 100%, 0% 100%
+  );
+}
+
+.torn-bottom {
+  clip-path: polygon(
+    0% 0%, 100% 0%, 
+    100% calc(100% - 10px), 95% 100%, 90% calc(100% - 12px), 85% 100%, 
+    80% calc(100% - 10px), 75% 100%, 70% calc(100% - 12px), 65% 100%, 
+    60% calc(100% - 14px), 55% 100%, 50% calc(100% - 12px), 45% 100%, 
+    40% calc(100% - 14px), 35% 100%, 30% calc(100% - 12px), 25% 100%, 
+    20% calc(100% - 10px), 15% 100%, 10% calc(100% - 12px), 5% 100%, 
+    0% calc(100% - 10px)
+  );
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .section-title {
+    font-size: 3rem;
+  }
+}
