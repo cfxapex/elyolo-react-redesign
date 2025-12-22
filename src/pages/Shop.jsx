@@ -1,10 +1,29 @@
-import { useState } from 'react';
-import { products } from '../data/products';
+import { useState, useEffect } from 'react';
+import { products as localProducts } from '../data/products';
+import { supabase } from '../lib/supabaseClient';
 import './Shop.css';
 
 export default function Shop() {
+  const [products, setProducts] = useState(localProducts);
   const [cart, setCart] = useState([]);
   const [selectedProduct, setSelectedProduct] = useState(null);
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      const { data, error } = await supabase
+        .from('products')
+        .select('*');
+
+      if (!error && data) {
+        // Merge local and remote products, ensuring no duplicates if IDs clash (though IDs should ideally be distinct)
+        // For now, we prefer remote if ID matches, or just concat.
+        // Simple concat avoiding ID collision relative to local might be tricky unless we assume remote IDs are different (UUIDs vs numbers).
+        // Let's just append remote ones.
+        setProducts([...localProducts, ...data]);
+      }
+    };
+    fetchProducts();
+  }, []);
 
   const addToCart = (product, size, color, customText) => {
     // Basic customization fee logic
@@ -173,8 +192,8 @@ export default function Shop() {
 
         {/* Product Grid */}
         <div className="products-grid">
-          {products.map(product => (
-            <ProductCard key={product.id} product={product} />
+          {products.map((product, index) => (
+            <ProductCard key={product.id || index} product={product} />
           ))}
         </div>
 

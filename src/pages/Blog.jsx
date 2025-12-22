@@ -1,8 +1,25 @@
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { blogPosts } from '../data/blogPosts';
+import { blogPosts as localPosts } from '../data/blogPosts';
+import { supabase } from '../lib/supabaseClient';
 import './Blog.css';
 
 export default function Blog() {
+  const [blogPosts, setBlogPosts] = useState(localPosts);
+
+  useEffect(() => {
+    const fetchPosts = async () => {
+      const { data, error } = await supabase
+        .from('blog_posts')
+        .select('*');
+
+      if (!error && data) {
+        setBlogPosts([...localPosts, ...data]);
+      }
+    };
+    fetchPosts();
+  }, []);
+
   const formatDate = (dateString) => {
     const options = { year: 'numeric', month: 'long', day: 'numeric' };
     return new Date(dateString).toLocaleDateString('en-US', options);
@@ -14,7 +31,7 @@ export default function Blog() {
         <div className="container">
           <h1 className="section-title">WARRIOR STORIES</h1>
           <p className="blog-intro">
-            <strong>REAL PEOPLE. REAL STRUGGLES. REAL VICTORIES.</strong><br/>
+            <strong>REAL PEOPLE. REAL STRUGGLES. REAL VICTORIES.</strong><br />
             These are stories from fighters who've been through hell and came out stronger.
             No filters. No BS. Just raw truth.
           </p>
@@ -63,8 +80,8 @@ export default function Blog() {
       <div className="blog-footer-cta">
         <div className="container">
           <h2>GOT A STORY TO TELL?</h2>
-          <p>Your experience could be the push someone else needs to keep fighting.<br/>
-          Don't hold back. Share your truth.</p>
+          <p>Your experience could be the push someone else needs to keep fighting.<br />
+            Don't hold back. Share your truth.</p>
           <Link to="/submit-story" className="btn btn-outline">
             SUBMIT YOUR STORY
           </Link>

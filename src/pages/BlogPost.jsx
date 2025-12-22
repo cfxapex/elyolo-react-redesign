@@ -1,10 +1,40 @@
+import { useState, useEffect } from 'react';
 import { useParams, Link, Navigate } from 'react-router-dom';
-import { blogPosts } from '../data/blogPosts';
+import { blogPosts as localPosts } from '../data/blogPosts';
+import { supabase } from '../lib/supabaseClient';
 import './BlogPost.css';
 
 export default function BlogPost() {
   const { id } = useParams();
-  const post = blogPosts.find(p => p.id === parseInt(id));
+  const [post, setPost] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchPost = async () => {
+      // 1. Try local find first
+      const local = localPosts.find(p => p.id == id);
+      if (local) {
+        setPost(local);
+        setLoading(false);
+        return;
+      }
+
+      // 2. Try Supabase
+      const { data, error } = await supabase
+        .from('blog_posts')
+        .select('*')
+        .eq('id', id)
+        .single();
+
+      if (data) {
+        setPost(data);
+      }
+      setLoading(false);
+    };
+    fetchPost();
+  }, [id]);
+
+  if (loading) return <div className="container" style={{ marginTop: '100px', textAlign: 'center' }}>Loading...</div>;
 
   if (!post) {
     return <Navigate to="/blog" />;
