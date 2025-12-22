@@ -7,7 +7,7 @@ export default function Navigation() {
       <ul>
         <li><NavLink to="/">HOME</NavLink></li>
         <li><NavLink to="/shop">SHOP</NavLink></li>
-        <li><NavLink to="/custom">CUSTOM SHIRTS</NavLink></li>
+
         <li><NavLink to="/blog">STORIES</NavLink></li>
         <li><NavLink to="/submit-story" className="highlight">SHARE YOUR STORY</NavLink></li>
         <li><NavLink to="/contact">CONTACT</NavLink></li>
