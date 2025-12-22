@@ -45,18 +45,9 @@
 }
 
 /* Highlight for "Share Your Story" link */
-.navigation a.highlight {
-  background: #fff;
-  color: #000;
-  border: 2px solid #000;
-}
 
-.navigation a.highlight:hover,
-.navigation a.highlight.active {
-  background: #000;
-  color: #fff;
-  transform: rotate(2deg);
-}
+
+
 
 @media (max-width: 768px) {
   .navigation ul {
