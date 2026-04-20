@@ -23,8 +23,12 @@ const AdminDashboard = () => {
                         Add New Product
                     </Link>
 
-                    <Link to="/admin/blog/new" className="btn-primary" style={{ textDecoration: 'none', display: 'block', backgroundColor: '#333' }}>
-                        Add New Blog Post
+                    <Link to="/admin/blog" className="btn-primary" style={{ textDecoration: 'none', display: 'block', backgroundColor: '#333' }}>
+                        Manage Blog Posts
+                    </Link>
+
+                    <Link to="/admin/info" className="btn-primary" style={{ textDecoration: 'none', display: 'block', backgroundColor: '#111' }}>
+                        Edit Site Info (Contact/About)
                     </Link>
                 </div>
 

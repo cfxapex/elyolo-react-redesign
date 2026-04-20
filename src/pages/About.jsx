@@ -1,6 +1,18 @@
+import { useEffect, useState } from 'react';
+import { fetchSiteInfo } from '../lib/siteInfo';
 import './About.css';
 
 export default function About() {
+  const [siteInfo, setSiteInfo] = useState(null);
+
+  useEffect(() => {
+    const load = async () => {
+      const info = await fetchSiteInfo();
+      setSiteInfo(info);
+    };
+    load();
+  }, []);
+
   return (
     <div className="about-page">
       <div className="container">
@@ -9,15 +21,21 @@ export default function About() {
         <div className="about-content">
           <section className="about-section">
             <h2>Our Mission</h2>
-            <p>
-              ELYOLO was created to help and inspire everyone to enjoy life. Life can be a struggle
-              sometimes, but that doesn't mean you can't find joy. No matter what you are dealing with,
-              you can live your best life and inspire others to do the same.
-            </p>
-            <p>
-              We believe that no hardship, mental or physical disability should stop you from enjoying
-              life to the fullest. Our mission is to spread love, kindness, and inspiration to all.
-            </p>
+            {siteInfo?.about_mission ? (
+              <p>{siteInfo.about_mission}</p>
+            ) : (
+              <>
+                <p>
+                  ELYOLO was created to help and inspire everyone to enjoy life. Life can be a struggle
+                  sometimes, but that doesn't mean you can't find joy. No matter what you are dealing with,
+                  you can live your best life and inspire others to do the same.
+                </p>
+                <p>
+                  We believe that no hardship, mental or physical disability should stop you from enjoying
+                  life to the fullest. Our mission is to spread love, kindness, and inspiration to all.
+                </p>
+              </>
+            )}
           </section>
 
           <section className="about-section">
@@ -55,8 +73,10 @@ export default function About() {
             <h2>The ELYOLO Philosophy</h2>
             <blockquote className="philosophy-quote">
               <p>
-                "You attract the energy that you give off. Spread good vibes. Think positively.
-                Enjoy Life. You Only Live Once."
+                {siteInfo?.about_philosophy_quote
+                  ? `"${siteInfo.about_philosophy_quote}"`
+                  : `"You attract the energy that you give off. Spread good vibes. Think positively.
+                Enjoy Life. You Only Live Once."`}
               </p>
             </blockquote>
 

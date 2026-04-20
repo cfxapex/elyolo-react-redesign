@@ -3,7 +3,7 @@ import { Navigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 
 const ProtectedRoute = ({ children }) => {
-    const { user, loading } = useAuth();
+    const { user, loading, isAdmin } = useAuth();
 
     if (loading) {
         return <div>Loading...</div>; // Or a nice spinner
@@ -11,6 +11,10 @@ const ProtectedRoute = ({ children }) => {
 
     if (!user) {
         return <Navigate to="/admin/login" />;
+    }
+
+    if (!isAdmin) {
+        return <Navigate to="/" />;
     }
 
     return children;

@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { fetchSiteInfo } from '../lib/siteInfo';
 import './Contact.css';
 
 export default function Contact() {
@@ -8,6 +9,15 @@ export default function Contact() {
     subject: '',
     message: ''
   });
+  const [siteInfo, setSiteInfo] = useState(null);
+
+  useEffect(() => {
+    const load = async () => {
+      const info = await fetchSiteInfo();
+      setSiteInfo(info);
+    };
+    load();
+  }, []);
 
   const handleChange = (e) => {
     setFormData({
@@ -57,7 +67,9 @@ We'll get back to you at ${formData.email} as soon as possible!
                 <span className="info-icon">📧</span>
                 <div>
                   <h3>Email</h3>
-                  <a href="mailto:elyoloinfo@gmail.com">elyoloinfo@gmail.com</a>
+                  <a href={`mailto:${siteInfo?.contact_email ?? 'elyoloinfo@gmail.com'}`}>
+                    {siteInfo?.contact_email ?? 'elyoloinfo@gmail.com'}
+                  </a>
                 </div>
               </div>
 
@@ -65,7 +77,7 @@ We'll get back to you at ${formData.email} as soon as possible!
                 <span className="info-icon">📱</span>
                 <div>
                   <h3>Social Media</h3>
-                  <p>Follow us on Instagram: @myelyolo</p>
+                  <p>Follow us on Instagram: {siteInfo?.instagram_handle ?? '@myelyolo'}</p>
                 </div>
               </div>
 
@@ -81,9 +93,9 @@ We'll get back to you at ${formData.email} as soon as possible!
             <div className="social-connect">
               <h3>Connect With Us</h3>
               <div className="social-buttons">
-                <a href="https://youtube.com" className="social-btn">▶️ YouTube</a>
-                <a href="https://instagram.com" className="social-btn">📷 Instagram</a>
-                <a href="https://facebook.com" className="social-btn">📘 Facebook</a>
+                <a href={siteInfo?.youtube_url ?? 'https://youtube.com'} className="social-btn">▶️ YouTube</a>
+                <a href={siteInfo?.instagram_url ?? 'https://instagram.com'} className="social-btn">📷 Instagram</a>
+                <a href={siteInfo?.facebook_url ?? 'https://facebook.com'} className="social-btn">📘 Facebook</a>
               </div>
             </div>
           </div>

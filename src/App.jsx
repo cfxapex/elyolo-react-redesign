@@ -14,6 +14,8 @@ import AdminLogin from './pages/AdminLogin';
 import AdminDashboard from './pages/AdminDashboard';
 import ProductEditor from './pages/ProductEditor';
 import BlogEditor from './pages/BlogEditor';
+import AdminBlogManager from './pages/AdminBlogManager';
+import AdminSiteInfo from './pages/AdminSiteInfo';
 import ProtectedRoute from './components/ProtectedRoute';
 import './styles/global.css';
 
@@ -57,6 +59,30 @@ function App() {
               element={
                 <ProtectedRoute>
                   <BlogEditor />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/admin/blog"
+              element={
+                <ProtectedRoute>
+                  <AdminBlogManager />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/admin/blog/:id/edit"
+              element={
+                <ProtectedRoute>
+                  <BlogEditor />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/admin/info"
+              element={
+                <ProtectedRoute>
+                  <AdminSiteInfo />
                 </ProtectedRoute>
               }
             />
